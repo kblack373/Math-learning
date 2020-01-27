@@ -15,11 +15,7 @@ class Register extends Component{
         this.onSubmit = this.onSubmit.bind(this)
     }
     onChange(e){
-        // this.setState({ [e.target.name]: e.target.name })
-        this.setState({first_name:e.first_name.name})
-        this.setState({last_name:e.last_name})
-        this.setState({student_id:e.student_id})
-        this.setState({password:e.password})
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     onSubmit(e){

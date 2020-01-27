@@ -20,6 +20,7 @@ class Profile extends Component{
             last_name: decoded.last_name,
             student_id: decoded.student_id
         })
+        console.log({first_name});
         }
         render(){
             return(
