@@ -29,7 +29,7 @@ users.post('/register' , (req, res) =>{
                 userData.password = hash
                 User.create(userData)
                 .then(user => {
-                    res.json({status: user.student_id + 'created'})
+                    res.json({status: user.student_id + ' created'})
                 })
                 .catch(err => {
                     res.send('error: ' + err)

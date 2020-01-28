@@ -51,6 +51,7 @@ class Navbar extends Component {
                      </Link>
                  </li>
              </ul>
+             {/* make a case where it could be dev or derek here */}
              {localStorage.usertoken ? userLink : loginRegLink}
             </div>
         </nav>

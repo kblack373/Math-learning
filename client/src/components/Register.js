@@ -29,9 +29,8 @@ class Register extends Component{
         }
 
         register(user).then(res =>{
-            if(res) {
+                {alert(user.first_name +" " + user.last_name + " Registered!")}
                 this.props.history.push('/login')
-            }
         })
     }
 
@@ -39,7 +38,7 @@ class Register extends Component{
         return(
             <div>
                 <form noValidate onSubmit={this.onSubmit}>
-                    <h1>Sign in!</h1>
+                    <h1>Sign Up!</h1>
                     <div>
                         <label>First name</label>
                         <input type="text"
