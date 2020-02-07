@@ -6,13 +6,27 @@ export const register = newUser => {
         first_name:newUser.first_name,
         last_name: newUser.last_name,
         student_id:newUser.student_id,
-        password:newUser.password
+        password:newUser.password,
+        dev_pass:newUser.dev_pass
     })
     .then(res =>{
         console.log("Registered")
     })
 }
 
+// export const registerTeacher = newTeacher => {
+//     return axios
+//     .post('users/register',{
+//         first_name:newTeacher.first_name,
+//         last_name: newTeacher.last_name,
+//         student_id:newTeacher.student_id,
+//         password:newTeacher.password,
+//         dev_pass:newTeacher.dev_pass
+//     })
+//     .then(res =>{
+//         console.log("Registered Teacher")
+//     })
+// }
 export const login = user =>{
     return axios
         .post('users/login',{
@@ -25,5 +39,12 @@ export const login = user =>{
         })
         .catch(err =>{
             console.log(err)
+        })
+}
+
+export const questions = answers =>{
+    return axios
+        .post('users/questions',{
+            question_one:answers.question_one
         })
 }

@@ -1,11 +1,11 @@
 const express = require("express")
 const users = express.Router()
-const cors = require("cors")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-
+// import {devPass} from "../config"
+// const devPass = require("../config")
 const User = require("../models/User")
-
+const Survey = require("../models/Survey")
 process.env.SECRET_KEY = 'secret'
 
 users.post('/register' , (req, res) =>{
@@ -15,8 +15,15 @@ users.post('/register' , (req, res) =>{
         last_name: req.body.last_name,
         student_id:req.body.student_id,
         password:req.body.password,
+        admin_level:req.body.admin_level,
         created:req.body.created
 
+    }
+    if(req.body.dev_pass === "12345"){
+        userData.admin_level = "derek"
+    }
+    else if(req.body.dev_pass!=''){
+        return
     }
     User.findOne({
         where: {
@@ -66,4 +73,19 @@ users.post('/login', (req,res) => {
         res.status(400).json({error: err})
     })
 })
+
+users.post('/questions/survey', (req,res) =>{
+    const answers = {
+        first_name:req.body.first_name,
+        last_name:req.body.last_name,
+        student_id:req.body.student_id,
+        question_one:req.body.question_one,
+        question_two:req.body.question_two,
+        question_three:req.body.question_three,
+        question_four:req.body.question_four,
+        question_five:req.body.question_five
+    }
+        Survey.create(answers)
+        res.send("here")
+    })
 module.exports = users

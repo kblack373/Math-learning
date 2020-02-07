@@ -2,9 +2,9 @@ const Sequelize = require("sequelize")
 const db = require("../database/db")
 
 module.exports = db.sequelize.define(
-    'user',
+    'survey',
     {
-        id: {
+        id:{
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement : true
@@ -18,16 +18,21 @@ module.exports = db.sequelize.define(
         student_id: {
             type: Sequelize.INTEGER
         },
-        password: {
+        question_one: {
             type: Sequelize.STRING
         },
-        admin_level: {
+        question_two: {
             type: Sequelize.STRING
         },
-        created: {
-            type: Sequelize.DATE,
-            defaultValue: Sequelize.NOW
-        }
+        question_three: {
+            type: Sequelize.STRING
+        },
+        question_four: {
+            type: Sequelize.STRING
+        },
+        question_five: {
+            type: Sequelize.STRING
+        },
     },
     {
         timestamps: false
