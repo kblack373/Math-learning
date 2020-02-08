@@ -21,8 +21,9 @@ class Register extends Component {
     }
     handleCheckboxChange = event => {
         this.setState({ checked: !this.state.checked })
+        this.setState({ dev_pass: ''})
     }
-
+    // TODO: Form validation
     onSubmit(e) {
         e.preventDefault()
 
@@ -36,7 +37,7 @@ class Register extends Component {
             }
             //create register_teacher function in UserFunctions
             register(teacher).then(res => {
-                alert(teacher.first_name + " " + teacher.last_name + " Teacher!")
+                // alert(teacher.first_name + " " + teacher.last_name + " Teacher!")
                 this.props.history.push('/login')
             })
         }
@@ -45,11 +46,12 @@ class Register extends Component {
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             student_id: this.state.student_id,
-            password: this.state.password
+            password: this.state.password,
+            dev_pass:this.state.dev_pass
         }
 
         register(user).then(res => {
-            alert(user.first_name + " " + user.last_name + " Registered!")
+            // alert(user.first_name + " " + user.last_name + " Registered!")
             this.props.history.push('/login')
         })
     }

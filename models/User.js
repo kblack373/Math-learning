@@ -22,7 +22,8 @@ module.exports = db.sequelize.define(
             type: Sequelize.STRING
         },
         admin_level: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER,
+            defaultValue:1
         },
         created: {
             type: Sequelize.DATE,

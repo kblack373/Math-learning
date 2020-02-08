@@ -8,7 +8,8 @@ class Profile extends Component{
         this.state = {
             first_name:'',
             last_name: '',
-            student_id:''
+            student_id:'',
+            admin_level:''
         }
     }
 
@@ -18,7 +19,8 @@ class Profile extends Component{
         this.setState({
             first_name: decoded.first_name,
             last_name: decoded.last_name,
-            student_id: decoded.student_id
+            student_id: decoded.student_id,
+            admin_level:decoded.admin_level
         })
         }
         render(){
@@ -38,6 +40,10 @@ class Profile extends Component{
                             <tr>
                                 <td>Student ID</td>
                                 <td>{this.state.student_id}</td>
+                            </tr>
+                            <tr>
+                                <td>admin_level</td>
+                                <td>{this.state.admin_level}</td>
                             </tr>
                         </tbody>
                     </table>

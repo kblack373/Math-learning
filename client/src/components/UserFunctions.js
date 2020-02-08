@@ -14,19 +14,6 @@ export const register = newUser => {
     })
 }
 
-// export const registerTeacher = newTeacher => {
-//     return axios
-//     .post('users/register',{
-//         first_name:newTeacher.first_name,
-//         last_name: newTeacher.last_name,
-//         student_id:newTeacher.student_id,
-//         password:newTeacher.password,
-//         dev_pass:newTeacher.dev_pass
-//     })
-//     .then(res =>{
-//         console.log("Registered Teacher")
-//     })
-// }
 export const login = user =>{
     return axios
         .post('users/login',{

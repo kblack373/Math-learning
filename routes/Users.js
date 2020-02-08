@@ -20,8 +20,9 @@ users.post('/register' , (req, res) =>{
 
     }
     if(req.body.dev_pass === "12345"){
-        userData.admin_level = "derek"
+        userData.admin_level = 3
     }
+    //fix this. need to make a cleaner solution for breaking.
     else if(req.body.dev_pass!=''){
         return
     }

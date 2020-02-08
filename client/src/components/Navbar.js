@@ -8,21 +8,7 @@ class Navbar extends Component {
         localStorage.removeItem('usertoken')
         this.props.history.push('/')
     }
-
-    checkAdmin(token){
-        const admin_level = jwt_decode(token).admin_level
-        if( admin_level === "derek" ){
-           return <span><derekLink /></span>
-        }
-        else if( admin_level === "teacher" ){
-            return <teacherLink />
-        }
-        else{
-            return <userLink />
-        }
-    }
     
-
     render() {
      const loginRegLink = (
          <ul>
@@ -114,11 +100,12 @@ class Navbar extends Component {
                      </Link>
                  </li>
              </ul>
-             {/* make a case where it could be dev or derek here */}
-             {/* {localStorage.usertoken.admin_level == "derek" ? derekLink :
-             localStorage.usertoken.admin_level == "teacher" ? teacherLink : 
-             localStorage.usertoken ? userLink : loginRegLink} */}
-             {localStorage.usertoken ? userLink : loginRegLink}
+             {/* make a more elegant solution here? */}
+             {localStorage.usertoken ?
+             jwt_decode(localStorage.usertoken).admin_level === 1 ? userLink :
+             jwt_decode(localStorage.usertoken).admin_level === 2 ? teacherLink : 
+             derekLink :
+             loginRegLink}
             </div>
         </nav>
 
