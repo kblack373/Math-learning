@@ -4,62 +4,73 @@ const cors = require("cors")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
-const User = require("../models/User")
+const User = require("../models/Account")
 
 process.env.SECRET_KEY = 'secret'
 
 users.post('/register' , (req, res) =>{
     const today = new Date()
     const userData = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        student_id:req.body.student_id,
-        password:req.body.password,
-        created:req.body.created
-
+        fName: req.body.fName,
+        lName: req.body.lName,
+        username:req.body.username,
+        passwordHash:req.body.passwordHash,
+        createdTimestamp:req.body.createdTimestamp,
+        consentBool:req.body.consentBool
     }
-    User.findOne({
-        where: {
-            student_id: req.body.student_id
-        }
-    })
-    .then(user =>{
-        if(!user){
-            bcrypt.hash(req.body.password, 10, (err,hash) => {
-                userData.password = hash
-                User.create(userData)
-                .then(user => {
-                    res.json({status: user.student_id + ' created'})
+
+    //userData.username = userData.fname + "." + userData.lName
+    userDup = 0, userPosted = false
+
+    while(!userPosted){
+
+        User.findOne({
+            where: {
+                username: req.body.username
+            }
+        })
+        .then(user =>{
+            if(!user){
+                bcrypt.hash(req.body.passwordHash, 10, (err,hash) => {
+                    userData.passwordHash = hash
+                    User.create(userData)
+                    .then(user => {
+                        res.json({status: user.username + ' created'})
+                    })
+                    .catch(err => {
+                        res.send('error: ' + err)
+                    })
                 })
-                .catch(err => {
-                    res.send('error: ' + err)
-                })
-            })
-        }else{
-            res.json({error: "User already exists"})
-        }
-    })
-    .catch(err => {
-        res.send('error: ' + err)
-    })
+                userPosted = true
+                alert("User " + userData.username + " created!")
+            }else{
+                //res.json({error: "User already exists"})
+                userDup++
+                userData.username = userData.fname + "." + userData.lName + userDup
+            }
+        })
+        .catch(err => {
+            res.send('error: ' + err)
+        })
+    }
 })
 
 users.post('/login', (req,res) => {
     User.findOne({
         where: {
-            student_id:req.body.student_id
+            username:req.body.username
         }
     })
     .then(user =>{
         if(user) {
-            if(bcrypt.compareSync(req.body.password,user.password)){
+            if(bcrypt.compareSync(req.body.passwordHash,user.passwordHash)){
                 let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
                     expiresIn: 1440
                 })
                 res.send(token)
             }
         } else{
-            res.status(400).json({error:"account does not exist. :("})
+            res.status(400).json({error:"Account does not exist. :("})
         }
     })
     .catch(err =>{

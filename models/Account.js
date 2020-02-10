@@ -17,7 +17,6 @@ module.exports = db.sequelize.define(
         },
         username: {
             type: Sequelize.INTEGER,
-            defaultValue: fName + "." + lName
         },
         passwordHash: {
             type: Sequelize.STRING
@@ -27,7 +26,8 @@ module.exports = db.sequelize.define(
             defaultValue: Sequelize.NOW
         },
         consentBool: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
         }
     },
     {

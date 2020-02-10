@@ -1,14 +1,17 @@
 import React, {Component} from 'react'
 import {register} from './UserFunctions'
 
+//Register page
 class Register extends Component{
     constructor() {
         super()
+
+        //Creates user object
         this.state = {
             first_name:'',
             last_name:'',
-            student_id:'',
-            password: ''
+            password:'',
+            password_c: ''
         }
 
         this.onChange = this.onChange.bind(this)
@@ -21,17 +24,24 @@ class Register extends Component{
     onSubmit(e){
         e.preventDefault()
 
-        const user = {
-            first_name:this.state.first_name,
-            last_name:this.state.last_name,
-            student_id:this.state.student_id,
-            password:this.state.password
-        }
+        if(this.state.password == this.state.password_c){
+            const user = {
+                first_name:this.state.first_name,
+                last_name:this.state.last_name,
+                student_id:this.state.first_name.toLowerCase() + "." + this.state.last_name.toLowerCase(),
+                password:this.state.password
+            }
 
-        register(user).then(res =>{
-                {alert(user.first_name +" " + user.last_name + " Registered!")}
-                this.props.history.push('/login')
-        })
+            //alert(user.first_name + " " + user.last_name + " (Username: " + user.student_id + ") Registered!")
+
+            register(user).then(res =>{
+                    {alert(user.first_name + " " + user.last_name + " (Username: " + user.student_id + ") Registered!")}
+                    this.props.history.push('/login')
+            })
+        }
+        else{
+            alert("Passwords didn't match!")
+        }
     }
 
     render(){
@@ -40,7 +50,7 @@ class Register extends Component{
                 <form noValidate onSubmit={this.onSubmit}>
                     <h1>Sign Up!</h1>
                     <div>
-                        <label>First name</label>
+                        <label>First name</label> 
                         <input type="text"
                         name="first_name"
                         placeholder="First Name"
@@ -58,20 +68,20 @@ class Register extends Component{
                         />
                     </div>
                     <div>
-                        <label>Student Id</label>
-                        <input type="text"
-                        name="student_id"
-                        placeholder="Student ID"
-                        value={this.state.student_id}
-                        onChange={this.onChange}
-                        />
-                    </div>
-                    <div>
                         <label>Password</label>
                         <input type="password"
                         name="password"
                         placeholder="Enter Password"
                         value={this.state.password}
+                        onChange={this.onChange}
+                        />
+                    </div>
+                    <div>
+                        <label>Confirm Password</label>
+                        <input type="password"
+                        name="password_c"
+                        placeholder="Confirm Password"
+                        value={this.state.password_c}
                         onChange={this.onChange}
                         />
                     </div>

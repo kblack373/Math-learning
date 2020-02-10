@@ -1,22 +1,28 @@
 import axios from 'axios'
 
 export const register = newUser => {
+    //console.log(newUser)
     return axios
     .post('users/register',{
-        first_name:newUser.first_name,
-        last_name: newUser.last_name,
-        student_id:newUser.student_id,
-        password:newUser.password
+        fName: newUser.first_name,
+        lName: newUser.last_name,
+        username: newUser.student_id,
+        passwordHash: newUser.password,
+        createdTimestamp: new Date(),
+        consentBool: false
     })
     .then(res =>{
         console.log("Registered")
+    })
+    .catch(err =>{
+        console.log("FUCK: " + err)
     })
 }
 
 export const login = user =>{
     return axios
         .post('users/login',{
-            student_id:user.student_id,
+            username:user.username,
             password:user.password
         })
         .then(res =>{

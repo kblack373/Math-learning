@@ -16,7 +16,8 @@ module.exports = db.sequelize.define(
             type:Sequelize.STRING
         },
         range: {
-            type: Sequelize.FLOAT
+            type: Sequelize.FLOAT,
+            defaultValue: 5.0
         }
     },
     {
