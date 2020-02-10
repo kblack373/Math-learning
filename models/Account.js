@@ -4,7 +4,7 @@ const db = require("../database/db")
 module.exports = db.sequelize.define(
     'account',
     {
-        id: {
+        userid: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -31,6 +31,7 @@ module.exports = db.sequelize.define(
         }
     },
     {
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     }
 )

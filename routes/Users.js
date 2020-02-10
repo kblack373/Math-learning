@@ -4,12 +4,13 @@ const cors = require("cors")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
-const User = require("../models/Account")
+const Account = require("../models/Account")
 
 process.env.SECRET_KEY = 'secret'
 
 users.post('/register' , (req, res) =>{
     const today = new Date()
+    
     const userData = {
         fName: req.body.fName,
         lName: req.body.lName,
@@ -23,17 +24,18 @@ users.post('/register' , (req, res) =>{
     userDup = 0, userPosted = false
 
     while(!userPosted){
-
-        User.findOne({
+        //console.log(userData.username)
+        Account.findOne({
             where: {
-                username: req.body.username
+                username: userData.username
             }
         })
         .then(user =>{
+            console.log(user)
             if(!user){
-                bcrypt.hash(req.body.passwordHash, 10, (err,hash) => {
+                bcrypt.hash(userData.passwordHash, 10, (err,hash) => {
                     userData.passwordHash = hash
-                    User.create(userData)
+                    Account.create(userData)
                     .then(user => {
                         res.json({status: user.username + ' created'})
                     })
@@ -45,6 +47,7 @@ users.post('/register' , (req, res) =>{
                 alert("User " + userData.username + " created!")
             }else{
                 //res.json({error: "User already exists"})
+                
                 userDup++
                 userData.username = userData.fname + "." + userData.lName + userDup
             }
@@ -56,7 +59,7 @@ users.post('/register' , (req, res) =>{
 })
 
 users.post('/login', (req,res) => {
-    User.findOne({
+    Account.findOne({
         where: {
             username:req.body.username
         }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const register = newUser => {
-    //console.log(newUser)
+    console.log(newUser)
     return axios
     .post('users/register',{
         fName: newUser.first_name,
