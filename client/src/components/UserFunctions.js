@@ -10,7 +10,7 @@ export const register = newUser => {
         dev_pass:newUser.dev_pass
     })
     .then(res =>{
-        console.log("Registered")
+        console.log(res)
     })
 }
 

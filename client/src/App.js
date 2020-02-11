@@ -7,6 +7,7 @@ import Landing from './components/Landing'
 import Register from './components/Register'
 import Profile from './components/Profile'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.css';
 function App() {
   return (
     <Router>

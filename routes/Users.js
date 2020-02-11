@@ -2,8 +2,6 @@ const express = require("express")
 const users = express.Router()
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-// import {devPass} from "../config"
-// const devPass = require("../config")
 const User = require("../models/User")
 const Survey = require("../models/Survey")
 process.env.SECRET_KEY = 'secret'
@@ -19,12 +17,8 @@ users.post('/register' , (req, res) =>{
         created:req.body.created
 
     }
-    if(req.body.dev_pass === "12345"){
+    if(req.body.dev_pass != ''){
         userData.admin_level = 3
-    }
-    //fix this. need to make a cleaner solution for breaking.
-    else if(req.body.dev_pass!=''){
-        return
     }
     User.findOne({
         where: {
@@ -37,7 +31,7 @@ users.post('/register' , (req, res) =>{
                 userData.password = hash
                 User.create(userData)
                 .then(user => {
-                    res.json({status: user.student_id + ' created'})
+                    res.send({status: user.student_id + ' created'})
                 })
                 .catch(err => {
                     res.send('error: ' + err)
